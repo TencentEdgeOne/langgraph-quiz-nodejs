@@ -1,5 +1,6 @@
 {
   "name": "langgraph-quiz-starter-nodejs",
+  "description": "An AI quiz challenge app where AI generates questions and users answer to clear levels, built with LangGraph.",
   "private": true,
   "version": "0.1.0",
   "type": "module",
