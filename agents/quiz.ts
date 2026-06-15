@@ -24,14 +24,15 @@ function sse(event: string, data: unknown): string {
 
 function getEnv(contextEnv: Record<string, string | undefined> | undefined): Env {
   const source = contextEnv ?? {};
-  const required = ["AI_GATEWAY_API_KEY", "AI_GATEWAY_BASE_URL"] as const;
-  const missing = required.filter((k) => !source[k]?.trim());
-  if (missing.length) {
-    throw new Error(`Missing environment variables: ${missing.join(", ")}`);
+  const apiKey = source.AI_GATEWAY_API_KEY?.trim() || "";
+  const baseUrl = source.AI_GATEWAY_BASE_URL?.trim() || "";
+  if (!apiKey || !baseUrl) {
+    throw new Error("Missing AI_GATEWAY_API_KEY or AI_GATEWAY_BASE_URL");
   }
   return {
-    AI_GATEWAY_API_KEY: source.AI_GATEWAY_API_KEY!,
-    AI_GATEWAY_BASE_URL: source.AI_GATEWAY_BASE_URL!,
+    AI_GATEWAY_API_KEY: apiKey,
+    AI_GATEWAY_BASE_URL: baseUrl,
+    AI_GATEWAY_MODEL: source.AI_GATEWAY_MODEL?.trim() || "@makers/hy3-preview",
   };
 }
 

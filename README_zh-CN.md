@@ -22,6 +22,7 @@ LangGraph Quiz Agent 以状态图的形式运行一个交互式知识问答游�
 |------|------|------|
 | `AI_GATEWAY_API_KEY` | 是 | 模型网关 API Key。使用 **Makers Models API Key**，或任何 OpenAI 兼容的 Key。 |
 | `AI_GATEWAY_BASE_URL` | 是 | 网关地址。Makers Models 使用 `https://ai-gateway.edgeone.link/v1`。 |
+| `AI_GATEWAY_MODEL` | 否 | 模型 ID。默认为 `@makers/hy3-preview`（免费内置模型）。 |
 
 > 本模板遵循 **OpenAI 兼容标准**，可对接 Makers Models 或任何兼容的模型网关。
 

@@ -16,6 +16,7 @@ import { MAX_ATTEMPTS, type QuizStateType } from "./state";
 export interface Env {
   AI_GATEWAY_API_KEY: string;
   AI_GATEWAY_BASE_URL: string;
+  AI_GATEWAY_MODEL: string;
 }
 
 let _questionModelCache: Runnable | null = null;
@@ -34,7 +35,7 @@ type GeneratedQuestion = z.infer<typeof GeneratedQuestionSchema>;
 
 export async function initModels(env: Env) {
   if (!_questionModelCache) {
-    const base = await initChatModel("@makers/hy3-preview", {
+    const base = await initChatModel(env.AI_GATEWAY_MODEL, {
       modelProvider: "openai",
       apiKey: env.AI_GATEWAY_API_KEY,
       configuration: { baseURL: env.AI_GATEWAY_BASE_URL },
@@ -52,7 +53,7 @@ export async function initModels(env: Env) {
     ]);
   }
   if (!_hintModelCache) {
-    _hintModelCache = await initChatModel("@makers/hy3-preview", {
+    _hintModelCache = await initChatModel(env.AI_GATEWAY_MODEL, {
       modelProvider: "openai",
       apiKey: env.AI_GATEWAY_API_KEY,
       configuration: { baseURL: env.AI_GATEWAY_BASE_URL },

@@ -22,6 +22,7 @@ LangGraph Quiz Agent runs an interactive trivia game as a stateful graph. The LL
 |----------|----------|-------------|
 | `AI_GATEWAY_API_KEY` | Yes | Model gateway API key. Use your **Makers Models API Key**, or any OpenAI-compatible provider key. |
 | `AI_GATEWAY_BASE_URL` | Yes | Gateway base URL. For Makers Models, use `https://ai-gateway.edgeone.link/v1`. |
+| `AI_GATEWAY_MODEL` | No | Model ID. Defaults to `@makers/hy3-preview` (a free built-in model). |
 
 > This template follows the **OpenAI-compatible** standard — you can point these variables at Makers Models or any other compatible gateway / provider.
 
