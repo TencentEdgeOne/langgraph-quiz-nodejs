@@ -34,12 +34,18 @@ const GeneratedQuestionSchema = z.object({
 type GeneratedQuestion = z.infer<typeof GeneratedQuestionSchema>;
 
 export async function initModels(env: Env) {
+  const modelId = env.AI_GATEWAY_MODEL;
+  // DeepSeek models support thinking/reasoning; disable via modelKwargs
+  const modelKwargs = modelId.toLowerCase().includes("deepseek")
+    ? { thinking: { type: "disabled" } }
+    : undefined;
   if (!_questionModelCache) {
-    const base = await initChatModel(env.AI_GATEWAY_MODEL, {
+    const base = await initChatModel(modelId, {
       modelProvider: "openai",
       apiKey: env.AI_GATEWAY_API_KEY,
       configuration: { baseURL: env.AI_GATEWAY_BASE_URL },
       temperature: 0.7,
+      modelKwargs,
     });
     _questionModelCache = base.bindTools([
       {
@@ -53,11 +59,12 @@ export async function initModels(env: Env) {
     ]);
   }
   if (!_hintModelCache) {
-    _hintModelCache = await initChatModel(env.AI_GATEWAY_MODEL, {
+    _hintModelCache = await initChatModel(modelId, {
       modelProvider: "openai",
       apiKey: env.AI_GATEWAY_API_KEY,
       configuration: { baseURL: env.AI_GATEWAY_BASE_URL },
       temperature: 0.7,
+      modelKwargs,
     });
   }
 }
