@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-	  "dev": "vite",
+    "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "@vitejs/plugin-react": "^6.0.0",
     "tailwindcss": "^4.1.0",
     "typescript": "^5.7.0",
-    "vite": "^8.0.0"
+    "vite": "^8.0.0",
+    "@edgeone/types": "^1.0.1"
   }
 }

@@ -1,3 +1,4 @@
+import type { AgentContext } from '@edgeone/types';
 import { Command } from "@langchain/langgraph";
 import { buildGraph } from "./_lib/graph";
 import { MAX_ATTEMPTS } from "./_lib/state";
@@ -306,11 +307,11 @@ async function handleGraph(graphInstance: ReturnType<typeof buildGraph>): Promis
   });
 }
 
-export async function onRequest(context: any) {
+export async function onRequest(context: AgentContext) {
   const { request, env, conversation_id: conversationId, run_id: runId } = context;
   logger.log("conversationId:", conversationId, "runId:", runId);
 
-  const body = request?.body ?? {};
+  const body = (request?.body ?? {}) as Record<string, any>;
   const { action, ...payload } = body;
 
   if (!action) {

@@ -1,10 +1,11 @@
+import type { AgentContext } from '@edgeone/types';
 import { createLogger } from "./_lib/logger";
 
 const logger = createLogger("stop");
 
-export async function onRequest(context: any) {
+export async function onRequest(context: AgentContext) {
   const { request } = context;
-  const conversationId = request?.body?.conversationId as string | undefined;
+  const conversationId = ((request?.body ?? {}) as Record<string, any>)?.conversationId as string | undefined;
   logger.log("conversationId:", conversationId);
 
   if (!conversationId) {
